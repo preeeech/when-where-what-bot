@@ -1,20 +1,9 @@
-import googlemaps
-import os
-import requests
-import pandas as pd
 from utils.geocode import GeoBuilder
 
 
-def scrape_spreadsheet(link):
-    res = pd.read_html(link)[0]
-    link ='https://docs.google.com/spreadsheets/d/1PUFyF3pq2oDU0gnE1ytaBShB7DGzBLzgy7mlp4QL5jk/edit#gid=935924829'
+if __name__ == '__main__':    
+    link = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRbQUZgHKwbKsigjyK3XKK-pjr53sFPNJ3RRtbP_gtA2uBAl-sN2_KPVLE7FMJk-bUYFUtOZU34L-kZ/pub?gid=935924829&single=true&output=csv'
+    geo = GeoBuilder(link)
+    fastest_path = geo.get_fastest_route("Austin, TX", time_range=["11:00am", "1:00pm"])
+    print(fastest_path)
     
-
-
-if __name__ == '__main__':
-    geo = GeoBuilder()
-    coordinates = geo.get_coordinates("902 Monterra Dr, MO")
-    link = geo.build_url(*coordinates)
-    print(link)
-    
-  
