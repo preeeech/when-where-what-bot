@@ -10,6 +10,10 @@ class GeoBuilder:
         self.base_url = "https://www.google.com/maps/place/{},{}"
         self.variable_base_url = "https://www.google.com/maps/dir/"
         self.df = pd.read_csv(spreadsheet_link, encoding='utf-8', on_bad_lines='skip')
+        self.filter_df(self.df)
+
+
+    def filter_df(self, df):
         self.df = self.df.drop('RSVP?', axis=1)
         self.df = self.df.drop('Details', axis=1)
         self.df["start"] = self.df["Time"].map(lambda x: self.parse_times(x))
@@ -17,11 +21,10 @@ class GeoBuilder:
         self.df = self.df.dropna()
         self.df["start"] = self.df["start"].map(lambda x: self.add_minutes(x))
         self.df["end"] = self.df["end"].map(lambda x: self.add_minutes(x))
-        self.df['start'] = pd.to_datetime(self.df['start']).dt.time
-        self.df['end'] = pd.to_datetime(self.df['end']).dt.time
-        self.events = self.df
-
-
+        self.df['start'] = pd.to_datetime(self.df['start'], errors='coerce').dt.time
+        self.df['end'] = pd.to_datetime(self.df['end'], errors ='coerce').dt.time
+        
+        
     def parse_times(self, time_range, start=True):
         if type(time_range) != str:
             return pd.NA
@@ -137,12 +140,11 @@ class GeoBuilder:
             start, end = time_range
             start = pd.to_datetime(start).time()
             end = pd.to_datetime(end).time()
-            destinations = self.events[(self.events['start'] >= start) & (self.events['end'] <= end)] 
+            destinations = self.df[(self.df['start'] >= start) & (self.df['end'] <= end)] 
             destinations = list(destinations['Location'])
         else:
-            destinations = list(self.events['Location']) if destinations is None else destinations
+            destinations = list(self.df['Location']) if destinations is None else destinations
         perms = list(itertools.permutations(destinations))
-        print(len(perms))
         path_times = {(origin, ) + k: 0 for k in perms}
 
         for destinations in perms:
