@@ -34,10 +34,10 @@ WhenWhereWhat bot gives the ability to scrape data from spreadsheets containing 
 
 The CLI tool scrapes events from [when-where-austin](https://linktr.ee/whenwherewhataustin) spreadsheets
 
-### `python main.py <spreadsheet link> <origin location> <start time> <end time>`
+`python main.py <spreadsheet link> <origin location> <start time> <end time>`
 
 * example:
-  ### `python main.py https://docs.google.com/spreadsheets/d/e/2PACX-1vRbQUZgHKwbKsigjyK3XKK-pjr53sFPNJ3RRtbP_gtA2uBAl-sN2_KPVLE7FMJk-bUYFUtOZU34L-kZ/pub?gid=935924829&single=true&output=csv Austin 4pm 8pm`
+`python main.py https://docs.google.com/spreadsheets/d/e/2PACX-1vRbQUZgHKwbKsigjyK3XKK-pjr53sFPNJ3RRtbP_gtA2uBAl-sN2_KPVLE7FMJk-bUYFUtOZU34L-kZ/pub?gid=935924829&single=true&output=csv Austin 4pm 8pm`
 
 
 <!-- LICENSE -->
