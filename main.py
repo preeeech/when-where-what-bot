@@ -18,6 +18,7 @@ with open('links.json') as f:
 def main(link, origin, start, end):
     geo = GeoBuilder(link)
     fastest_path = geo.get_fastest_route(origin, time_range=[start, end])
+    print(f'Optimal Route:\n{fastest_route}')
 
 
 if __name__ == '__main__':    
