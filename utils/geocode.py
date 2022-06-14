@@ -13,7 +13,7 @@ class GeoBuilder:
         self.filter_df(self.df)
 
 
-    def filter_df(self, df):
+    def filter_df(self, df: pd.DataFrame):
         self.df = self.df.drop('RSVP?', axis=1)
         self.df = self.df.drop('Details', axis=1)
         self.df["start"] = self.df["Time"].map(lambda x: self.parse_times(x))
@@ -25,7 +25,7 @@ class GeoBuilder:
         self.df['end'] = pd.to_datetime(self.df['end'], errors ='coerce').dt.time
         
         
-    def parse_times(self, time_range, start=True):
+    def parse_times(self, time_range: any, start: bool = True):
         if type(time_range) != str:
             return pd.NA
         ampm = ['am', 'pm']
@@ -95,7 +95,7 @@ class GeoBuilder:
             return pd.NA
 
 
-    def add_minutes(self, time):
+    def add_minutes(self, time: str):
         if ':' in time:
             return time
         if 'am' in time:
@@ -119,7 +119,7 @@ class GeoBuilder:
         return (location['lat'], location['lng'])
 
 
-    def build_url(self, lat, long):
+    def build_url(self, lat: str, long: str):
         '''
         Returns a Google Maps URL given latitude and longitude
                 Parameters:
